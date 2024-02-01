@@ -5,6 +5,7 @@ import sys
 import csv
 import logging
 from dotenv import load_dotenv
+from web3 import Web3
 
 # Load environment variables
 load_dotenv()
@@ -38,18 +39,9 @@ def get_logs(api_key, base_url, contract_address, start_block, end_block, event_
     except requests.exceptions.RequestException as e:
         logging.error(f"Error during requests to {base_url}: {e}")
 
-def convert_hex_to_decimal(hex_value):
-    return int(hex_value, 16)
-
-def convert_hex_to_eth_address(hex_value):
-    return '0x' + hex_value[-40:]
-
 def convert_hex_to_datetime(hex_value):
     timestamp = int(hex_value, 16)
     return datetime.datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d')  # Only return the date part
-
-def convert_wei_to_ether(wei_value):
-    return wei_value / 1e18
 
 def get_closest_delegation(delegation_data, query_datetime):
     closest_delegation = 0
@@ -148,7 +140,10 @@ start_block = '16308190'
 end_block = 'latest'
 
 # Process each contract from CSV data
+contract_number = 0
 for contract in contracts_data:
+    contract_number += 1
+    print(f'Processing contract {contract_number}')
     address = contract['contract']
     # Initialize storage for each contract and delegate
     contract_delegations[address] = {}
@@ -158,9 +153,9 @@ for contract in contracts_data:
         logs = get_logs(etherscan_api_key, etherscan_base_url, address, start_block, end_block, event_hash)
         for log in logs['result']:
             hex_data = log['data']
-            decimal_data = convert_hex_to_decimal(hex_data)
-            ether_value = convert_wei_to_ether(decimal_data)
-            delegate_address = convert_hex_to_eth_address(log['topics'][1])
+            decimal_data = Web3.to_int(hexstr=log['data'])
+            ether_value = Web3.from_wei(decimal_data, 'ether')
+            delegate_address = Web3.to_checksum_address(log['topics'][1][-40:])
             timestamp = convert_hex_to_datetime(log['timeStamp'])
 
             # Initialize delegate storage

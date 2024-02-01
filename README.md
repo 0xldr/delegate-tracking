@@ -1,15 +1,39 @@
 # Delegate Tracking
 
-This repository stores a Python Script for monitoring delegated MKR to Aligned Delegates at MakerDAO.
+This repository contains a Python script for monitoring MKR delegated to Aligned Delegates at MakerDAO.
 
-Since it utilizes Etherscan's API, an Etherscan API Key is required.
+## Important Note
+- The script is not compatible with Python 3.12 due to the deprecation of certain datetime functions used in the code.
 
-It will generate the amount of MKR delegated to each AD for each date in the selected range, as well as calculate the rank of that AD compared to all other ADs. This can be exported as a csv for ease of use.
+## Current Functionality
+- Retrieves delegation logs from Etherscan.
+- Allows querying of delegation data for specific dates or ranges.
+- Option to export results to a CSV file.
 
-AD information should be loaded as a CSV called "Aligned Delegates.csv" in the data folder. An example is provided that is correct as of 2024-01-04.
+## Requirements
+- An Etherscan API Key is required.
+- Python 3.x (versions prior to 3.12) and dependencies listed in `requirements.txt`.
+
+## Installation
+Follow these steps to set up the project:
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/0xldr/delegate-tracking.git
+   ```
+1. Navigate to the cloned directory:
+   ```bash
+   cd delegate-tracking
+   ```
+1. Install the required dependencies:
+   ```bash
+   pip install -r requirements.txt
+   ```
+   
+## Usage
+1. Install the required dependencies from `requirements.txt`.
+2. Run `delegate_tracking.py` and follow the on-screen prompts.
 
 ## To Dos
-
-* General code clean up.
-* Add support for GSL end dates - currently this needs to be checked manually.
-* Automatically source participation data for votes.
+- [ ] General code clean up.
+- [ ] Add support for GSL end dates.
+- [ ] Automatically source participation data for votes.
