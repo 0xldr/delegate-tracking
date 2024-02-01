@@ -148,7 +148,10 @@ start_block = '16308190'
 end_block = 'latest'
 
 # Process each contract from CSV data
+contract_number = 0
 for contract in contracts_data:
+    contract_number += 1
+    print(f'Processing contract {contract_number}')
     address = contract['contract']
     # Initialize storage for each contract and delegate
     contract_delegations[address] = {}
@@ -244,3 +247,4 @@ while True:
     continue_query = input("\nDo you want to query another date? (yes/no): ").strip().lower()
     if continue_query != 'yes':
         break
+    
