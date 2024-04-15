@@ -28,7 +28,7 @@ Follow these steps to set up the project:
    ```bash
    pip install -r requirements.txt
    ```
-   
+
 ## Usage
 1. Install the required dependencies from `requirements.txt`.
 2. Run `delegate_tracking.py` and follow the on-screen prompts.
