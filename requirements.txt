@@ -32,7 +32,7 @@ rlp==4.0.0
 rpds-py==0.17.1
 toolz==0.12.1
 typing_extensions==4.9.0
-urllib3==2.2.0
+urllib3==2.7.0
 web3==7.15.0
 websockets==12.0
 yarl==1.9.4
